@@ -1,0 +1,165 @@
+{% extends "candidate.html" %}
+{% load static %}
+{% block content %}
+
+
+
+
+<section id="main-content">
+  <section class="wrapper" style="min-height: 93vh">
+    <h3>Approved Job List</h3>
+    <div class="row mt">
+      <div class="col-lg-10">
+        <div class="content-panel" style="padding: 10px 10px;">
+
+          <section id="unseen">
+            <form name="f1" method="post" action="{% url 'application' %}">
+              {% csrf_token %}
+             
+            </form>
+
+
+
+
+            <table class="table table-bordered table-striped table-condensed" style="width: 100%" >
+
+              <thead>
+                <tr>
+                    <th>Sl:No</th>
+                    <th>Company</th>
+                    <th>Job Title</th>
+                    <th>Applied Date</th>
+                    <th>Action</th>
+                   
+                </tr>
+            </thead>
+            <tbody>
+                {% for d in datacom %}
+                <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{d.job_id.company_id.company_name}}</td>
+                    <td>{{d.job_id.job_title}}</td>
+                    <td>{{d.applicant_date}}</td>
+                   <td> 
+                    {% if d.applicant_status == "approved" %}   
+                      {% if d.exam_status == "waiting" %}
+                    <a class="btn btn-success" href="{% url 'exam' %}?id={{d.job_id.job_id}}&aid={{d.applicant_id}}" role="button">Exam</a>
+                   {% else %}
+
+
+                   {% if d.result_status == "waiting" %}
+                   Attented waiting for result
+                   {% else %}
+                  
+{% if d.result_status == "fail" %}
+You have failed
+
+{% else %}
+
+{% if d.resume_status == "waiting" %}
+You have pass upload  your resume  <button type="button" class="btn btn-primary"
+data-bs-toggle="modal" data-bs-target="#up_{{d.applicant_id}}">
+  upload 
+ </button> 
+
+
+
+ <div class="modal fade" id="up_{{d.applicant_id}}" tabindex="-1" 
+ aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Upload Resume</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form class="form-horizontal" enctype="multipart/form-data" method="post" name="myForm" onsubmit=""
+      action="{% url 'upload' %}">
+
+    {% csrf_token %}
+    <input type="hidden" class="form-control" value="{{d.applicant_id}}" name="applicant_id">
+      <div class="modal-body">
+        <div class="mb-3">
+          
+          <input class="form-control" type="file" id="resume" name="resume">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Upload</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>    
+
+{% else %}
+
+{% if d.getresult.checkpassed %}
+You have been Invited<br/>
+venue : {{d.job_id.company_id.company_address}} <br/>
+Time: {{d.getresult.getpassed.invit_time}}
+{% else %}
+Resume Submited
+{% endif %}
+<!---
+
+  invitation message will come here
+
+resume send
+-->
+
+
+
+{% endif %}
+ {% endif %}
+
+
+                   {% endif%}
+
+                   {% endif%}
+                    {% else %}
+                waiting for confirmation
+                {% endif %}
+                </td>
+                              </tr>
+                                        
+                  
+                
+                {% endfor %}
+              </tbody>
+            </table>
+          </section>
+        </div><!-- /content-panel -->
+      </div><!-- /col-lg-4 -->
+      <div style="height:530px;">
+      </div>
+    </div><!-- /row -->
+  </section>
+</section>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

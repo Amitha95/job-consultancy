@@ -1,0 +1,59 @@
+{% extends "adminhome.html" %}
+{% load static %}
+{% block content %}
+<section id="main-content" style="min-height: 93vh">
+    <section class="wrapper">
+        <h3>Candidate Complaints about company</h3>
+            <div class="row mt">
+                <div class="col-lg-10">
+                <div class="content-panel" style="padding: 10px">
+                     
+                    <section id="unseen">
+                        <table class="table table-bordered table-striped table-condensed" style="width:100%;">
+                            <thead>
+                            <tr>
+                            <th>Sl:No</th>
+                            <th>Name</th>
+                            <th>Company Name</th>
+                            <th>Subject</th>
+                            <th>Complaint</th>
+                            <th>Reply</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+{% for d in data %}
+
+<tr>
+    <th>{{forloop.counter}}
+    </th>
+    <th>{{d.candidate_id.candidate_name}}
+        <th>{{d.company_id.company_name}}</th>
+<br/>
+{{d.cadidate_id.candidate_email}}
+    </th>
+    <Th>{{d.sub}}</Th>
+    <th>{{d.msg}}</th>
+    <th>
+       
+         
+
+     
+        {{d.reply}}
+    
+    </th>
+    </tr>
+   
+{% endfor %}
+                            </tbody>
+
+                            </table>
+                    </section>
+                </div><!-- /content-panel -->
+             </div><!-- /col-lg-4 -->			   
+            </div><!-- /row -->
+          </section>
+      </section>
+
+
+
+{% endblock %}

@@ -1,0 +1,68 @@
+{% extends "adminhome.html" %}
+{% load static %}
+{% block content %}
+<section id="main-content">
+  <section class="wrapper" style="min-height: 93vh">
+    <h3>Approved Job List</h3>
+    <div class="row mt">
+      <div class="col-lg-10">
+        <div class="content-panel" style="padding: 10px 10px;">
+
+          <section id="unseen">
+            <form name="f1" method="post" action="{% url 'new_jobs' %}">
+              {% csrf_token %}
+             
+            </form>
+
+
+
+
+            <table class="table table-bordered table-striped table-condensed" style="width: 100%">
+
+              <thead>
+                <tr>
+                    <th>Sl:No</th>
+                    <th>Company Name</th>
+                    <th>Job Title</th>
+                    <th>Role</th>
+                    <th>Designation</th>
+                    <th>Qualification</th>
+                    <th>Salary</th>
+                    <th>Company Location</th>
+                    <th>Experience</th>
+                    <th>Experienced in</th>
+                    <th>Exam Schedule</th>
+                    <th>Cutoff marks</th>
+                   
+                </tr>
+            </thead>
+            <tbody>
+                {% for d in datalist %}
+                <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{d.company_id.company_name}}</td>
+                    <td>{{d.job_title}}</td>
+                    <td>{{d.job_role}}</td>
+                    <td>{{d.job_designation}}</td>
+                    <td>{{d.job_qualificaion}}</td>
+                    <td>{{d.job_salary}}</td>
+                    <td>{{d.job_location}}</td>
+                    <td>{{d.job_experience}}</td>
+                    <td>{{d.job_experiencein}}</td>
+                    <td>{{d.job_examschedule}}</td>
+                    <td>{{d.job_cutoff}}</td>
+
+                  
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </section>
+        </div><!-- /content-panel -->
+      </div><!-- /col-lg-4 -->
+      <div style="height:530px;">
+      </div>
+    </div><!-- /row -->
+  </section>
+</section>
+{% endblock %}

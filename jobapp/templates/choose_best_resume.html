@@ -1,0 +1,32 @@
+{% extends "companyhome.html" %} 
+{% load static %} 
+{% block content %}
+    <h1>Choose Best Resume</h1>
+
+    <h2>Best Resume:</h2>
+    <p>{{ best_resume }}</p>
+
+    <h2>Converted Resumes:</h2>
+    {% if converted_resumes %}
+        <ul>
+            {% for resume_filename in converted_resumes %}
+                <li>
+                    <a href="{% url 'download_resume' resume_filename %}">{{ resume_filename }}</a>
+                    <button onclick="compareResumes('{{ resume_filename }}')">Compare</button>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No converted resumes available.</p>
+    {% endif %}
+
+    <hr>
+
+   
+    <script>
+        function compareResumes(resumeFilename) {
+            // Implement the comparison logic here
+            alert("Comparing resume: " + resumeFilename);
+        }
+    </script>
+{% endblock %}

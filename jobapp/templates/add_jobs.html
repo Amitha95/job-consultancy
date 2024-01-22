@@ -1,0 +1,143 @@
+{% extends 'companyhome.html' %}
+{% load static %}
+{% block content %}
+<head>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.2.min.js"></script>
+</head>
+<form class="container mt-3" method="POST" enctype="multipart/form-data" action="{% url 'add_jobs' %}">
+    {% csrf_token %}
+    
+ 
+    <div class="row mt-3">
+        <div class="form-group col-md-6">
+            <label>Job Title</label>
+            <input type="text" class="form-control" name="title"  placeholder="Job Title"required >
+        </div>
+    
+    
+    
+        <div class="form-group col-md-6">
+            <label>Role</label>
+            <input type="text" class="form-control" name="role" id="role" placeholder="Role" required>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="form-group col-md-6">
+            <label>Designation</label>
+            <input type="text" class="form-control" name="designation" id="designation" placeholder="Designation"required >
+        </div>
+        <div class="form-group col-md-6">
+            <label>Qualification</label>
+            <select name="qualification" id="cars" required>
+                <option value="">None</option>
+                <option value="BA" disabled>BA</option>
+                <option value="BA Economics">BA Economics</option>
+                <option value="BA English">BA English</option>
+                <option value="BA English and Malayalam">BA English and Malayalam</option>
+                <option value="BA Journalism and Mass Communication">BA Journalism and Mass Communication</option>
+                <option value="BA History">BA History</option>
+                <option value="BA Hindi">BA Hindi</option>
+                <option value="BA Malayalam">BA Malayalam</option>
+                <option value="BA Political Science">BA Political Science</option>
+                <option value="BA Sanskrit">BA Sanskrit</option>
+                <hr>
+                <option value="BSc" disabled>BSc</option>
+                <option value="BSc Botany">BSc Botany</option>
+                <option value="BSc Botany and Biotechnology">BSc Botany and Biotechnology</option>
+                <option value="BSc Chemistry">BSc Chemistry</option>
+                <option value="BSc Mathematics">BSc Mathematics</option>
+                <option value="BSc Physics">BSc Physics</option>
+                <option value="BSc Physics and Computer Application">BSc Physics and Computer Application</option>
+                <option value="BSc Zoology">BSc Zoology</option>
+                <hr>
+                <option value="BCOM">BCom</option>
+                <option value="BBA">BBA</option>
+                <hr>
+                <option value="MA" disabled>MA</option>
+                <option value="MA Economics">MA Economics</option>
+                <option value="MA English">MA English</option>
+                <option value="MA Hindi">MA Hindi</option>
+                <option value="MA History">MA History</option>
+                <option value="MA Malayalam">MA Malayalam</option>
+                <option value="MA Political Science">MA Political Science</option>
+                <hr>
+                <option value="MSc " disabled>MSc</option>
+                <option value="MSc Analytical Chemistry">MSc Analytical Chemistry</option>
+                <option value="MSc Botany">MSc Botany</option>
+                <option value="MSc Chemistry">MSc Chemistry</option>
+                <option value="MSc Mathematics">MSc Mathematics</option>
+                <option value="MSc Physics">MSc Physics</option>
+                <option value="MSc Zoology">MSc Zoology</option>
+                <option value="MCom">MCom</option>
+              </select>
+            <!--<textarea type="text" class="form-control" name="qualification" style="width:450px;" placeholder="Qualification" required></textarea>-->
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="form-group col-md-6">
+            <label>Salary (per month)</label>
+            <input type="text" class="form-control" name="salary" id="salary" placeholder="Enter Salary (per month)"required >
+        </div>
+    
+ 
+    
+        <div class="form-group col-md-6">
+            <label>Experience</label>
+            <input type="text" class="form-control" name="exp" id="exp" placeholder="Experience" value="Nil">
+        </div>
+        </div>
+    
+    <div class="row mt-3">
+        <div class="form-group col-md-6">
+            <label>Experience (in field)</label>
+            
+            <textarea type="text" class="form-control" name="expin" style="width:450px;" placeholder="Experience in which filed" value="Nil" ></textarea>
+        </div>
+        <div class="form-group col-md-6">
+            <label>Company Location</label>
+            <input type="text" class="form-control" name="location" id="location" placeholder="Company location"required>
+        </div>
+    </div>
+ 
+    <div class="row mt-3">
+        <div class="form-group col-md-6">
+            <label>Exam schedule</label>
+           <input type="date" name="examsch" id="date_picker" class="form-control" cols="30" rows="4" placeholder="Examination date"required></textarea>
+        </div>
+    
+
+    
+        <div class="form-group col-md-6">
+            <label>Cutoff mark</label>
+           <input type="number" name="cutoff" id="cutoff" class="form-control" cols="30" rows="4" placeholder="Cutoff Mark" min="0" max="100"required ></textarea>
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="form-group col-md-6">
+            <label>Question Count</label>
+           <input type="number" name="quecount" id="quecount" class="form-control" cols="30" rows="4" placeholder="Questions" max="30"required ></textarea>
+        </div>
+        <div class="form-group col-md-6">
+           <label>Job Description</label>
+           <textarea type="text" class="form-control" name="desc" style="width:450px;" placeholder="Description"></textarea>
+        </div>
+    </div>
+<input type="submit" value="Submit" class="btn mt-3" style="background-color: #4f868c; color: white; font-size: larger; width: 8rem;">
+</form>
+{% endblock %}
+<script>
+    $(document).ready(function () {
+        var today = new Date().toISOString().split('T')[0];
+        $("#minDate").attr('min', today);
+    });
+    var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0');
+        var yyyy = today.getFullYear();
+
+        today = yyyy + '-' + mm + '-' + dd;
+        $('#date_picker').attr('min',today)
+    
+         
+</script>

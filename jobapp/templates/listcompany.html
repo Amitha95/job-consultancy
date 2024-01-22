@@ -1,0 +1,118 @@
+{% extends "adminhome.html" %}
+{% load static %}
+{% block content %}
+
+<section id="main-content" style="min-height: 93vh">
+    <section class="wrapper">
+        
+            <div class="row mt">
+                <div class="col-lg-10">
+                <div class="content-panel" style="padding: 10px 10px;">
+                    
+                    <section id="unseen">
+                    <form name="f1" method="post" action="{% url 'listcompany' %}">
+                        {% csrf_token %}
+                        
+                        <!--<table class="table table-bordered table-striped table-condensed" style="width: 500px">
+                            <tr><td>SEARCH COMPANY </td>
+                            <td>
+                            <input type="text" name="ser_user" value="{{d.company_name}}" placeholder="Search  name"> 
+                             </td>
+                             <td><input type="submit" name="sub" value="search"/></td>
+                           </tr>
+                           </table>-->
+                      </form>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                      <table class="table table-bordered table-striped table-condensed" style="width:100%;"style="width:100%;">
+                        <thead>
+                          <tr>
+                            <th>Sl:No</th>
+                            <th>Name</th>
+                            <th>Address</th>
+                            
+                            <th>Email Id</th>
+                            <th>Phone No</th>
+                            <th>POC</th>
+                            <th>Location</th>
+                            <th>Pocmail</th>
+                            <th>Pocdis</th>
+                            <th>Pocphone</th>
+                            <th>logo</th>
+                            <th>Register no</th>
+                            <th>Foundedyear</th>
+                            <th>Action</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {% for d in dataco %}
+                          <tr>
+                            <td>{{forloop.counter}}</td>
+                            <td>{{d.company_name}}</td>
+                            <td>{{d.company_address}}</td>
+                            <td>{{d.company_email}}</td>
+                            <td>{{d.company_phone}}</td>
+                            <td>{{d.company_poc}}</td>
+                            <td>{{d.company_location}}</td>
+                            <td>{{d.company_pocmail}}</td>
+                            <td>{{d.comapany_pocdis}}</td>
+                            <td>{{d.company_pocphone}}</td>
+                            <td>{{d.company_logo}}</td>
+                            <td>{{d.company_regno}}</td>
+                            <td>{{d.company_foundedyear }}</td>
+                            
+                            
+
+
+                            <td><button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                              data-bs-target="#delete-{{d.company_id}}">
+                              Delete
+                            </button></td>
+          <div class="modal fade" id="delete-{{d.company_id}}" role="dialog" >
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                    <div class="modal-header">
+                
+                </div>
+                   <div class="modal-body">
+               <br>
+             <h3 class="modal-title custom_align" id="Heading" style="margin-left:200px;color:#555">Are You Want Delete This candidate?</h3>
+             <br>
+             <form class="form-horizontal" method="post" name="myForm" onsubmit="" action="{% url 'deletecompany' %}">
+              {% csrf_token %}
+               <input type="hidden" class="form-control" value="{{d.company_id}}" name="company_id"> 	 
+             <div class="box-content">
+              
+            <button name="delete" type="submit" class="btn btn-success" ><span class="glyphicon 
+            glyphicon-ok-sign"></span>yes</button>
+          <button type="reset" class="btn btn-default pull-right" data-bs-dismiss="modal"><span class="glyphicon glyphicon-remove"></span>No</button>
+                                
+          </div>
+          </form>
+             <div class="modal-footer ">
+            </div> 
+            </div>
+          </div>
+          </div>
+                                  </tr>
+                                  {% endfor %}								
+                                </tbody>
+                              </table>
+                              </section>
+                      </div><!-- /content-panel -->
+                   </div><!-- /col-lg-4 -->	
+                  <div style="height:530px;">
+                    </div>				   
+                  </div><!-- /row -->
+                </section>
+            </section>
+            {% endblock %}
+        
+        
+        
+              

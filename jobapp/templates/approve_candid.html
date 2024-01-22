@@ -1,0 +1,196 @@
+{% extends "adminhome.html" %}
+{% load static %}
+{% block content %}
+
+<section id="main-content" style="min-height: 93vh">
+  <section class="wrapper">
+    <h3>Approve Candidate </h3>
+    <div class="row mt">
+      <div class="col-lg-10">
+        <div class="content-panel" style="padding: 10px 10px;">
+
+          <section id="unseen">
+            <table class="table table-bordered table-striped table-condensed" style="width:100%;">
+              <thead>
+                <br>
+                <tr>
+                  <th>Sl:No</th>
+
+                  <th>Name</th>
+                  <th>Address</th>
+                  <th>Lastqualification</th>
+                  <th>Experience</th>
+
+                  <th>Totalexperienced</th>
+                  <th>Phone No</th>
+                  <th>Email Id</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for d in dataz %}
+                <tr>
+                  <td>{{forloop.counter}}</td>
+                  <td>{{d.candidate_name}}</td>
+                  <td>{{d.candidate_address}}</td>
+                  <td>{{d.candidate_lastqualification}}</td>
+                  <td>{{d.candidate_experienced}}</td>
+                  <td>{{d.candidate_totalexperienced}}</td>
+                  <td>{{d.candidate_phone}}</td>
+                  <td>{{d.candidate_email}}</td>
+
+                  <td>
+                    <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                      data-bs-target="#comp-{{d.candidate_id}}">
+                      Accept
+                    </button></td>
+
+                    <td><button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                      data-bs-target="#reject-{{d.candidate_id}}">
+                      Reject
+                    </button></td>
+
+
+
+                   
+                    <div class="modal fade" id="comp-{{d.candidate_id}}" tabindex="-1"
+                      aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                              <div class="modal-header">
+                          
+                          </div>
+                             <div class="modal-body">
+                         <br>
+                         <h3 class="modal-title custom_align" id="Heading" style="margin-left:200px;color:#555">Are you sure want to approve this user?</h3>
+                         <br>
+                         <form class="form-horizontal" method="post" action="{% url 'approvedcandid' %}">
+                          {% csrf_token %}  
+                           <input type="hidden" class="form-control"  value="{{d.candidate_id}}"  name="candidate_id"> 
+                              <div class="box-content">
+
+                                <button name="edit" type="submit" class="btn btn-success"><span
+                                    class="glyphicon glyphicon-ok-sign"></span> Approve</button>
+                                <button type="reset" class="btn btn-default pull-right" data-bs-dismiss="modal"><span
+                                    class="glyphicon glyphicon-remove"></span> Cancel</button>
+                              </div>
+                          </div>
+                          </form>
+                          <div class="modal-footer ">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="modal fade" id="reject-{{d.candidate_id}}" tabindex="-1"
+                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                      <div class="modal-content">
+                            <div class="modal-header">
+                        
+                        </div>
+                           <div class="modal-body">
+                       <br>
+                       <h3 class="modal-title custom_align" id="Heading" style="margin-left:200px;color:#555">Are you sure want to Reject this user?</h3>
+                       <br>
+                       <form class="form-horizontal" method="post" action="{% url 'rejectedcandid' %}">
+                        {% csrf_token %}
+                        <input type="hidden" class="form-control" value="{{d.candidate_id}}" name="candidate_id">
+                            <div class="box-content">
+
+                              <button name="edit" type="submit" class="btn btn-danger"><span
+                                  class="glyphicon glyphicon-ok-sign"></span> Reject</button>
+                              <button type="reset" class="btn btn-default pull-right" data-bs-dismiss="modal"><span
+                                  class="glyphicon glyphicon-remove"></span> Cancel</button>
+                            </div>
+                        </div>
+                        </form>
+                        <div class="modal-footer ">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+
+                  <!-- <div class="modal fade" id="reject-{{d.candidate_id}}}" role="dialog">
+                    <div class="modal-dialog modal-lg">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span
+                              class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                          <h4 class="modal-title custom_align" id="Heading">Reject staff</h4>
+                        </div>
+                        <div class="modal-body">
+                          <br>
+                          <h3 class="modal-title custom_align" id="Heading" style="margin-left:200px;color:#555">Are You
+                            Sure Want To reject staff?</h3>
+                          <br>
+                          <form class="form-horizontal" method="post" action="{% url 'approvecandid' %}">
+                            {% csrf_token %}
+                            <input type="hidden" class="form-control" value="{{d.candidate_id}}}" name="stf_id">
+                            <div class="box-content">
+
+                              <button name="edit" type="submit" class="btn btn-danger"><span class="glyphicon glyphicon-ok-sign"></span> Reject</button>
+                              <button type="reset" class="btn btn-default pull-right" data-dismiss="modal"><span
+                                  class="glyphicon glyphicon-remove"></span> Cancel</button>
+                            </div>
+                        </div>
+                        </form>
+                        <div class="modal-footer ">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="modal fade" id="comp-{{d.candidate_id}}" role="dialog">
+                    <div class="modal-dialog modal-lg">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span
+                              class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                          <h4 class="modal-title custom_align" id="Heading">Approve staff</h4>
+                        </div>
+                        <div class="modal-body">
+                          <br>
+                          <h3 class="modal-title custom_align" id="Heading" style="margin-left:200px;color:#555">Are You
+                            Sure Want To approve staff?</h3>
+                          <br>
+                          <form class="form-horizontal" method="post" action="{% url 'approvecandid' %}">
+                            {% csrf_token %}
+                            <input type="hidden" class="form-control" value="{{d.candidate_id}}" name="bt_id">
+                            <div class="box-content">
+
+                              <button name="edit" type="submit" class="btn btn-success"><span class="glyphicon glyphicon-ok-sign"></span> Approve</button>
+                              <button type="reset" class="btn btn-default pull-right" data-dismiss="modal"><span
+                                  class="glyphicon glyphicon-remove"></span> Cancel</button>
+                            </div>
+                        </div>
+                        </form>
+                        <div class="modal-footer ">
+                        </div>
+                      </div>
+                    </div>
+                  </div> -->
+
+
+
+
+
+
+
+
+
+
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </section>
+        </div><!-- /content-panel -->
+      </div><!-- /col-lg-4 -->
+      <div style="height:480px;">
+      </div>
+    </div><!-- /row -->
+  </section>
+</section>
+{% endblock %}

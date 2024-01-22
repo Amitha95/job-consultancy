@@ -1,0 +1,27 @@
+{% extends "companyhome.html" %} 
+{% load static %} 
+{% block content %}
+    <h1>Converted Resumes</h1>
+    {% if converted_resumes %}
+        <ul>
+            {% for resume_filename in converted_resumes %}
+                <li>
+                    <a href="{% url 'download_resume' resume_filename %}">{{ resume_filename }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No converted resumes available.</p>
+    {% endif %}
+    <hr>
+    <h2>Upload Resume</h2>
+    <form action="{% url 'upload_resume' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" name="resume_file" accept=".pdf">
+        <button type="submit">Upload</button>
+    </form>
+    <br>
+    <h2>Choose Best Resume</h2>
+    <a class="btn btn-success"href="{% url 'choose_best_resume' %}">Find</a>
+    
+{% endblock %}

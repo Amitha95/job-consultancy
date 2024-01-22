@@ -1,0 +1,74 @@
+{% extends "companyhome.html" %}
+{% load static %}
+{% block content %}
+<div class="testbox">
+    <form class="container " method="POST" enctype="multipart/form-data" action="{% url 'edit_question' %}?b={{d.question_id}}&id={{id}}">
+        {% csrf_token %}
+
+        <div class="banner">
+            <h1>Questions</h1>
+        </div><br>
+
+        <table id="table">
+
+            <tr>
+                <td>
+                    <div class="item">
+                        <label> Question No</label><br>
+                        <input type="text" name="qno" class="form-control" value="{{d.question_no}}" readonly required>
+                    </div><br>
+                </td>
+                <td>
+                    <div class="item">
+                        <label for="q3">Question</label><br>
+                        <input type="text" name="question" class="form-control" value="{{d.question}}" required>
+                    </div><br>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="item">
+                        <label for="q3">Option 1</label><br>
+                        <label for="">Option 1</label>
+                        <input type="text" name="option1" class="form-control" value="{{d.option1}}" required>
+                    </div><br>
+                </td>
+                <td>
+                    <div class="item">
+                        <label for="q4">Option 2</label><br>
+                        <input type="text" name="option2" class="form-control" value="{{d.option2}}" required>
+                    </div><br>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="item">
+                        <label for="q5">Option 3</label><br>
+                        <input type="text" name="option3" class="form-control" value="{{d.option3}}" required>
+                    </div><br>
+                </td>
+                <td>
+                    <div class="item">
+                        <label for="q6">Option 4</label><br>
+                        <input type="text" name="option4" class="form-control" value="{{d.option4}}" required>
+                    </div><br>
+                </td>
+            </tr>
+            <tr>
+
+                <td>
+                    <div class="item">
+                        <label for="q8">Answer</label>
+                        <input type="text" name="answer" class="form-control" value="{{d.answer}}" required>
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+
+        <br>
+        <input type="submit" value="Submit">
+    </form>
+</div>
+
+{% endblock %}

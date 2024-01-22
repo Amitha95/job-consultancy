@@ -1,0 +1,381 @@
+{% extends "candidate.html" %}
+{% load static %}
+{% block content %}
+
+
+
+
+<div></div>
+
+<section class="section profile">
+    <br><br>
+    <div class="row">
+        <div></div>
+        
+      <div class="col-xl-4">
+        
+        {% for d in datalst %}
+        <div class="card">
+          <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
+
+            <img src="{% static  'assets/img/profile.jpg' %}" alt="Profile" class="rounded-circle">
+            <h2>{{d.candidate_name}}</h2>
+           
+            <br>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#qualification">
+              Add Qualification
+             </button><br>
+             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#experience">
+               Add Experience
+              </button>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="col-xl-8">
+
+        <div class="card">
+          <div class="card-body pt-3">
+            <!-- Bordered Tabs -->
+            <ul class="nav nav-tabs nav-tabs-bordered">
+
+              <li class="nav-item">
+                <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview">Overview</button>
+              </li>
+
+              <li class="nav-item">
+                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Qualification</button>
+              </li>
+
+              <li class="nav-item">
+                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-settings">Experience</button>
+              </li>
+
+            </ul>
+            <div class="tab-content pt-2">
+
+              <div class="tab-pane fade show active profile-overview" id="profile-overview">
+               
+                <form  method="post" name="myform" onsubmit="return validateForm();" action="{% url 'profileeditcandid' %}?t1={{d.candidate_id}}">
+                  {% csrf_token %}
+                <h5 class="card-title">Profile Details</h5>
+                <div class="row">
+                  <div class="col-lg-3 col-md-4 label ">Name</div>
+                  <div class="col-lg-9 col-md-8">{{d.candidate_name}}</div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-3 col-md-4 label">Address</div>
+                    <div class="col-lg-9 col-md-8">{{d.candidate_address}}</div>
+                  </div>
+
+                <div class="row">
+                  <div class="col-lg-3 col-md-4 label">Last qualification</div>
+                  <div class="col-lg-9 col-md-8">{{d.candidate_lastqualification}}</div>
+                </div>
+
+                <div class="row">
+                  <div class="col-lg-3 col-md-4 label">Experience</div>
+                  <div class="col-lg-9 col-md-8">{{d.candidate_experienced}}</div>
+                </div>
+
+                <div class="row">
+                  <div class="col-lg-3 col-md-4 label">Total experience</div>
+                  <div class="col-lg-9 col-md-8">{{d.candidate_totalexperienced}}</div>
+                </div>
+
+                <div class="row">
+                  <div class="col-lg-3 col-md-4 label">Phone</div>
+                  <div class="col-lg-9 col-md-8">{{d.candidate_phone}}</div>
+                </div>
+
+                <div class="row">
+                  <div class="col-lg-3 col-md-4 label">Email  </div>
+                  <div class="col-lg-9 col-md-8">{{d.candidate_email}}</div>
+                </div>
+
+                <button name="edit" type="submit" class="mt-5 text-center" class="btn btn-info"   >Edit Profile</button></form>
+                </div>
+                  
+               {% endfor %}</form>
+
+            
+            
+                  <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
+
+                <!-- Profile Edit Form -->
+               
+
+                  
+                
+
+                  <!-- Settings Form -->
+                  
+
+                    <div class="row mb-3">
+                     
+                      <div class="col-md-8 col-lg-9">
+                       
+                        <table class="table table-bordered table-striped table-condensed" style="width: 100%">
+
+                          <thead>
+                            <th>Sl:No</th>
+        
+                            <th>Course</th>
+                            <th>PassYear</th>
+                            <th>Score</th>
+                            
+          
+                            <th>Action</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {% for d in datarr %}
+                          <tr>
+                            <td>{{forloop.counter}}</td>
+                            <td>{{d.course}}</td>
+                            <td>{{d.passyear}}</td>
+                            <td>{{d.score}}</td>
+                            
+                            <td>
+                              <form  method="post" name="myf" onsubmit="return validateForm();" action="{% url 'editqual' %}?d1={{d.qualification_id}}">
+                                {% csrf_token %}
+                              <button type="submit" class="btn btn-warning">Edit</button>
+                           
+                            </td></form>
+
+                            <form class="form-horizontal" method="post" name="myForm" onsubmit=""
+            action="{% url 'delete_qua' %}">
+            {% csrf_token %}
+                    <td><button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModalsss">
+         delete
+                    </button></td>
+                           
+                    <div class="modal fade" id="exampleModalsss" role="dialog">
+                      <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-hidden="true"><span
+                                class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                            <h4 class="modal-title custom_align" id="Heading">Delete</h4>
+                          </div>
+                          <div class="modal-body">
+                           
+                              <input type="hidden" class="form-control" value="{{d.qualification_id }}" name="qualification_id">
+                    
+                              <div class="box-content">
+                                <div class="col-md-12">
+                                  <h3 class="modal-title custom_align" id="Heading" style="color: #333">Are you sure want to delete
+                                    this Qualification?</h3>
+                                </div>
+                                <br><br><br>
+                                
+                                <button name="delete" type="submit" class="btn btn-success"><span class="glyphicon 
+                                    glyphicon-ok-sign"></span>Submit</button>
+                                <button type="reset" class="btn btn-default pull-right" data-bs-dismiss="modal"><span
+                                    class="glyphicon glyphicon-remove"></span>No</button>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                              {% endfor %}    
+                  </form></tbody></table><!-- End settings Form -->
+                 
+                </div></div></div>
+                
+                <div class="tab-pane fade pt-3" id="profile-settings">
+
+                  <!-- Settings Form -->
+                  
+                    <!-- Change Password Form -->
+                    <div class="row mb-3">
+                     
+                      <div class="col-md-8 col-lg-9">
+                      
+                        <table class="table table-bordered table-striped table-condensed" style="width: 100%">
+
+                          <thead>
+                            <th>Sl:No</th>
+        
+                            <th>company</th>
+                            <th>months</th>
+                            <th>From</th>
+                            <th>To</th>
+                            
+          
+                            <th>Action</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {% for d in dataexp %}
+                          <tr>
+                            <td>{{forloop.counter}}</td>
+                            <td>{{d.exp_company}}</td>
+                            <td>{{d.exp_months}}</td>
+                            <td>{{d.exp_from}}</td>
+                            <td>{{d.exp_to}}</td>
+                            <td>
+                              <form  method="post" name="myfww" onsubmit="return validateForm();" action="{% url 'editex' %}?x1={{d.experience_id}}">
+                                {% csrf_token %}
+                              <button type="submit" class="btn btn-warning">Edit</button>
+                           
+                            </td></form>
+
+                            <form class="form-horizontal" method="post" name="myForm" onsubmit=""
+            action="{% url 'delete_exp' %}">
+            {% csrf_token %}
+                    <td><button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModalsd">
+         delete
+                    </button></td>
+                           
+                    <div class="modal fade" id="exampleModalsd" role="dialog">
+                      <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-hidden="true"><span
+                                class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                            <h4 class="modal-title custom_align" id="Heading">Delete</h4>
+                          </div>
+                          <div class="modal-body">
+                           
+                              <input type="hidden" class="form-control" value="{{d.experience_id }}" name="experience_id">
+                    
+                              <div class="box-content">
+                                <div class="col-md-12">
+                                  <h3 class="modal-title custom_align" id="Heading" style="color: #333">Are you sure want to delete
+                                    this exp?</h3>
+                                </div>
+                                <br><br><br>
+                                
+                                <button name="delete" type="submit" class="btn btn-success"><span class="glyphicon 
+                                    glyphicon-ok-sign"></span>Submit</button>
+                                <button type="reset" class="btn btn-default pull-right" data-bs-dismiss="modal"><span
+                                    class="glyphicon glyphicon-remove"></span>No</button>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+
+
+
+
+                    
+
+                            {% endfor %}
+                </form></table></div></div></div>
+ 
+ 
+                  <!--delete--> 
+                         
+                  
+
+            <!-- Modal -->
+<div class="modal fade" id="qualification" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Qualification</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+         <form class="form-horizontal" method="post" name="myFo"  onsubmit="return validateForm();"
+        action="{% url 'qualification' %}" enctype="multipart/form-data"> 
+        {% csrf_token %}
+          <div class="rr" class="row mb-3">
+            <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Course</label>
+            <div class="col-md-8 col-lg-9">
+              <input name="course" type="text" class="form-control" >
+            </div>
+          </div>
+    
+          <div class="rr" class="row mb-3">
+            <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">PassYear</label>
+            <div class="col-md-8 col-lg-9">
+              <input name="passyear" type="number" class="form-control" >
+            </div>
+          </div>
+    
+          <div  class="rr" class="row mb-3">
+            <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">Score</label>
+            <div class="col-md-8 col-lg-9">
+              <input name="score" type="number" class="form-control">
+            </div>
+          </div>
+    
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </div>
+    </form>
+    </div>
+  </div>
+    
+      
+           
+
+  <div class="modal fade" id="experience" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="experience">Experience</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form class="form-horizontal" method="post" name="myFom"  onsubmit="return validateForm();"
+          action="{% url 'experience' %}" enctype="multipart/form-data"> 
+          {% csrf_token %}
+  
+            <div class="rr" class="row mb-3">
+              <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Company</label>
+              <div class="col-md-8 col-lg-9">
+                <input name="company" type="text" class="form-control" id="currentPassword">
+              </div>
+            </div>
+      
+            <div class="rr" class="row mb-3">
+              <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">Months</label>
+              <div class="col-md-8 col-lg-9">
+                <input name="month" type="number" class="form-control" id="newPassword">
+              </div>
+            </div>
+      
+            <div  class="rr" class="row mb-3">
+              <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">From</label>
+              <div class="col-md-8 col-lg-9">
+                <input name="fro" type="date" class="form-control" id="renewPassword">
+              </div>
+            </div>
+            <div  class="rr" class="row mb-3">
+              <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">To</label>
+              <div class="col-md-8 col-lg-9">
+                <input name="to" type="date" class="form-control" id="renewPassword">
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="sumbit" class="btn btn-primary">Sumbit</button>
+          </div>
+        </div>
+      </div>
+    </form>
+    </div>
+
+  </tbody>
+  </table>
+
+
+
+
+
+              
+{% endblock %}

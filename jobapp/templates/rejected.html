@@ -1,0 +1,84 @@
+{% extends "adminhome.html" %}
+{% load static %}
+{% block content %}
+
+<section id="main-content">
+	<section class="wrapper">
+	<div class="form-w3layouts">
+       
+        <!-- page start-->
+        <!-- page start-->
+        <div class="row">
+            <div class="col-lg-12">
+                   
+<div class="table-agile-info">
+ <div class="panel panel-default">
+    <div class="panel-heading">
+     Rejected Labour List
+    </div>
+    <div>
+      <table class="table" ui-jq="footable" ui-options='{
+        "paging": {
+          "enabled": true
+        },
+        "filtering": {
+          "enabled": true
+        },
+        "sorting": {
+          "enabled": true
+        }}'>
+        <thead>
+          <tr>
+		    <th>Sl:No</th>
+            <th>Sl:No</th>
+            <th>Photo</th>
+           <th>Name</th>
+           <th>Address</th>
+           <th>Lastqualification</th>
+           <th>Experience</th>
+       
+           <th>Totalexperienced</th>
+           <th>Phone No</th>
+           <th>Email Id</th>
+           <th>Action</th>
+           </tr>
+           </thead>
+           <tbody>
+               {% for d in dataz %}
+               <tr>
+                   <td>{{forloop.counter}}</td>
+                    <td><img src="../media/{{d.candidate_photo}}" alt="" height="50" width="70"/></td>
+                   <td>{{d.candidate_name}}</td>
+                   <td>{{d.candidate_address}}</td>
+                   <td>{{d.candidate_lastqualification}}</td>
+                   <td>{{d.candidate_experienced}}</td>
+                   <td>{{d.candidate_totalexperienced}}</td>
+                   <td>{{d.candidate_phone}}</td>
+                   <td>{{d.candidate_email}}</td>
+                                    <td>
+                                    </td>
+                                   
+</tr> 
+
+      
+    </div> 
+      </div>
+    <!-- /.modal-content --> 
+    </div>
+    </div>
+ {% endfor %}
+								
+                            </tbody>
+                            
+                          </table>
+                          
+    </div>
+  </div>
+</div>
+
+</div>
+</div>
+</div>
+</section>
+</section>
+{% endblock %}

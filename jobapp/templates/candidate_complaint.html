@@ -1,0 +1,98 @@
+{% extends "companyhome.html" %}
+{% load static %}
+{% block content %}
+<section id="main-content" style="min-height: 93vh">
+    <section class="wrapper">
+        <h3>Candidate Feedback</h3>
+            <div class="row mt">
+                <div class="col-lg-10">
+                <div class="content-panel" style="padding: 10px">
+                     
+                    <section id="unseen">
+                        <table class="table table-bordered table-striped table-condensed" style="width:100%;">
+                            <thead>
+                            <tr>
+                            <th>Sl:No</th>
+                            <th>Name</th>
+                            <th>Subject</th>
+                            <th>Complaint</th>
+                            <th>Reply</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+{% for d in data %}
+
+<tr>
+    <th>{{forloop.counter}}
+    </th>
+    <th>{{d.candidate_id.candidate_name}}
+<br/>
+{{d.cadidate_id.candidate_email}}
+    </th>
+    <Th>{{d.sub}}</Th>
+    <th>{{d.msg}}</th>
+    <th>
+        {% if d.reply == ""  %}
+        <a href="#" data-bs-toggle='modal' data-bs-target='#com-{{d.feedback_id}}'class="btn btn-info" >Reply</a>
+         
+
+        {% else %}
+        {{d.reply}}
+    {% endif %}
+    </th>
+    </tr>
+    {% if d.reply == ""  %}
+    <div id="com-{{d.feedback_id}}" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+        
+        <!-- Modal content-->
+        <div class="modal-content">
+        <form role="form" action="{% url 'candidate_complaint' %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="t1" readonly value="{{d.feedback_id}}"/>
+                            <div class="modal-header">
+       
+        <h4 class="modal-title">Feedback</h4>
+        </div>
+       
+        <div class="modal-body">
+        <div class="form-group">
+        <label for="email">Subject:</label>
+        <input type="text" class="form-control" name="s1" value="{{d.sub}}" readonly />
+        </div>
+        
+        <div class="form-group">
+        <label for="email">message</label>
+        <textarea class="form-control" name="s2"   >{{d.msg}}</textarea>
+    
+        </div>
+        
+        <div class="form-group">
+        <label for="email">Reply</label>
+        <textarea class="form-control" name="t2" required ></textarea>
+        </div>
+        
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-bs-dismiss="modal">Close</button>
+        <input type="submit" class="btn btn-success" value="Submit"/>
+        </div>
+        </div>
+        </form>
+        </div>
+        </div>
+        {% endif %}
+{% endfor %}
+                            </tbody>
+
+                            </table>
+                    </section>
+                </div><!-- /content-panel -->
+             </div><!-- /col-lg-4 -->			   
+            </div><!-- /row -->
+          </section>
+      </section>
+
+
+
+{% endblock %}

@@ -1,0 +1,197 @@
+{% extends "companyhome.html" %}
+{% load static %}
+{% block content %}
+<section id="main-content">
+  <section class="wrapper" style="min-height: 93vh">
+    <h3>Approved Job List</h3>
+    <div class="row mt">
+      <div class="col-lg-10">
+        <div class="content-panel" style="padding: 10px 10px;">
+
+          <section id="unseen">
+            <form name="f1" method="post" action="{% url 'approve_listjobs' %}">
+              {% csrf_token %}
+
+            </form>
+
+
+
+
+            <table class="table table-bordered table-striped table-condensed" style="width: 100%">
+
+              <thead>
+                <tr>
+                  <th>Sl:No</th>
+                  <th>Job Title</th>
+                  <th>Role</th>
+                  <th>Designation</th>
+                  <th>Qualification</th>
+                  <th>Salary</th>
+                  <th>Company Location</th>
+                  <th>Experience</th>
+                  <th>Experienced in</th>
+                  <th>Exam Schedule</th>
+                  <th>Cutoff marks</th>
+                  <th>Questions</th>
+                  <th>Action</th>
+
+                </tr>
+              </thead>
+              <tbody>
+                {% for d in datajab %}
+                <tr>
+                  <td>{{forloop.counter}}</td>
+                  <td>{{d.job_title}}</td>
+                  <td>{{d.job_role}}</td>
+                  <td>{{d.job_designation}}</td>
+                  <td>{{d.job_qualificaion}}</td>
+                  <td>{{d.job_salary}}</td>
+                  <td>{{d.job_location}}</td>
+                  <td>{{d.job_experience}}</td>
+                  <td>{{d.job_experiencein}}</td>
+                  <td>{{d.job_examschedule}}</td>
+                  <td>{{d.job_cutoff}}</td>
+                  <td><a class="btn btn-success" 
+                      href="{% url 'questions' %}?id={{d.job_id}}">Add</a>
+<!--
+                    <div class="modal fade" id="request-{{d.question_id}}" role="dialog">
+                      <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-hidden="true"><span
+                                class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                            <h4 class="modal-title custom_align" id="Heading">Approve Job</h4>
+                          </div>
+                          <div class="modal-body">
+                            <br>
+
+                            <form class="form-horizontal" method="post" action="{% url 'questions' %}">
+                              {% csrf_token %}
+
+                              <input type="hidden" class="form-control" value="{{d.question_id}}" name="id">
+                          
+                              <div class="box-content">
+
+                                <button name="delete" type="submit" class="btn btn-success"><span class="glyphicon 
+                                                        glyphicon-ok-sign"></span> Submit</button>
+                                <button type="reset" class="btn btn-default pull-right" data-bs-dismiss="modal"><span
+                                    class="glyphicon glyphicon-remove"></span> No</button>
+
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>-->
+                  </td>
+                  <td>
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-info dropdown-toggle" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Action
+                      </button>
+                      <ul class="dropdown-menu">
+
+                        <li><a data-bs-toggle="modal" data-bs-target="#request-{{d.job_id}}" href="#"><i
+                              class="fa fa-trash-o"> Send Job</i></a></li>
+                        <li><a data-bs-toggle="modal" data-bs-target="#delete-{{d.job_id}}" href="#"><i
+                              class="fa fa-trash-o">Delete</i></a></li>
+
+                      </ul>
+                    </div>
+                  </td>
+                  <div class="modal fade" id="request-{{d.job_id}}" role="dialog">
+                    <div class="modal-dialog modal-lg">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-bs-dismiss="modal" aria-hidden="true"><span
+                              class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                          <h4 class="modal-title custom_align" id="Heading">Send Job Notifications</h4>
+                        </div>
+                        <div class="modal-body">
+                          <br>
+                          <h3 class="modal-title custom_align" id="Heading" style="color: #333">Are you sure want to
+                            forward this
+                            Job?</h3>
+                          <br>
+                          <form class="form-horizontal" method="post" action="{% url 'approved_finaljob' %}">
+                            {% csrf_token %}
+
+                            <input type="hidden" class="form-control" value="{{d.job_id}}" name="id">
+                            <!--input type="hidden" class="form-control"  value="echo $row['bl_amt']?>"  name="amount"!-->
+                            <div class="box-content">
+
+                              <button name="delete" type="submit" class="btn btn-success"><span class="glyphicon 
+                                                        glyphicon-ok-sign"></span> Submit</button>
+                              <button type="reset" class="btn btn-default pull-right" data-bs-dismiss="modal"><span
+                                  class="glyphicon glyphicon-remove"></span> No</button>
+
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="modal fade" id="delete-{{d.job_id}}" role="dialog">
+                    <div class="modal-dialog modal-lg">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-bs-dismiss="modal" aria-hidden="true"><span
+                              class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                          <h4 class="modal-title custom_align" id="Heading">Delete job</h4>
+                        </div>
+                        <div class="modal-body">
+                          <form class="form-horizontal" method="post" name="myForm" onsubmit=""
+                            action="{% url 'delete_listjobs' %}">
+                            {% csrf_token %}
+                            <input type="hidden" class="form-control" value="{{d.job_id}}" name="id">
+
+                            <div class="box-content">
+                              <div class="col-md-12">
+                                <h3 class="modal-title custom_align" id="Heading" style="color: #333">Are you sure want
+                                  to reject
+                                  this Job?</h3>
+                              </div>
+                              <br><br><br>
+                              <button name="edit" type="submit" class="btn btn-success"><span class="glyphicon 
+                                                          glyphicon-ok-sign"></span>Submit</button>
+                              <button type="reset" class="btn btn-default pull-right" data-bs-dismiss="modal"><span
+                                  class="glyphicon glyphicon-remove"></span>No</button>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+
+
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </section>
+        </div><!-- /content-panel -->
+      </div><!-- /col-lg-4 -->
+      <div style="height:530px;">
+      </div>
+    </div><!-- /row -->
+  </section>
+</section>
+{% endblock %}
+
+<!--#def approve_listjobs(request):
+    datajb=job.objects.filter(status="waiting").all()
+    return render(request,"approve_listjobs.html",{"data":datajb})
+    
+
+#def approved_listjobs(request):
+    id=request.POST["id"]
+    job.objects.filter(job_id=id).update(status="approved")
+    response = redirect("/approve_listjobs")
+    return response
+
+#path('approve_listjobs',views.approve_listjobs,name="approve_listjobs"),
+#path('approved_listjobs',views.approved_listjobs,name="approved_listjobs"),
+-->
+<!--{% url 'approve_listjobs' %}-->

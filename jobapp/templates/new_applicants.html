@@ -1,0 +1,45 @@
+{% extends "companyhome.html" %}
+{% load static %}
+{% block content %}
+<section id="main-content">
+  <section class="wrapper" style="min-height: 93vh">
+    <h3>Approved Applicants</h3>
+    <div class="row mt">
+      <div class="col-lg-10">
+        <div class="content-panel" style="padding: 10px 10px;">
+
+          <section id="unseen">
+            <form name="f1" method="post" action="{% url 'new_applicants' %}">
+                {% csrf_token %}
+               
+              </form>
+                <table class="table table-bordered table-striped table-condensed" style="width: 100%">
+
+              <thead>
+                <tr>
+                  <th>Sl:No</th>
+                  <th>Job Title</th>
+                  <th>Applied date</th>
+                 
+
+                </tr>
+              </thead>
+              <tbody>
+                {% for d in dataapps %}
+                <tr>
+                  <td>{{forloop.counter}}</td>
+                  <td>{{d.job_id.job_title}}</td>
+                  <td>{{d.applicant_date}}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </section>
+        </div><!-- /content-panel -->
+      </div><!-- /col-lg-4 -->
+      <div style="height:530px;">
+      </div>
+    </div><!-- /row -->
+  </section>
+</section>
+{% endblock %}

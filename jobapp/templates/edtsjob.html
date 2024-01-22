@@ -1,0 +1,73 @@
+{% extends "companyhome.html" %}
+{% load static %}
+{% block content %}
+<head>Edit</head>
+
+  <form action="{% url 'edtsjob' %}?c={{d.job_id}}" method="post">
+        {% csrf_token %}
+        
+    <div class="row mt-3">
+      <div class="form-group col-md-6">
+        <label for="title">Title</label><br>
+        <input type="text" id="title" name="t4" value="{{d.job_title}}"><br>
+      </div>
+      <div class="form-group col-md-6">  
+        <label for="role">Role</label><br>
+        <input type="text" id="role" name="t5" value="{{d.job_role}}"><br>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="form-group col-md-6">
+        <label for="designation">Designation</label><br>
+        <input type="text" id="designation" name="t6" value="{{d.job_designation}}"><br>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="qualification">Qualification</label><br>
+        <input type="text" id="qualification" name="t7" value="{{d.job_qualificaion}}"><br>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="form-group col-md-6">
+        <label for="experience">Experience</label><br>
+        <input type="number" id="experience" name="t8" value="{{d.job_experience}}"><br>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="experiencein">Experiencein</label><br>
+        <input type="text" id="experiencein" name="t9" value="{{d.job_experiencein}}"><br>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="form-group col-md-6">
+        <label for="salary">Salary</label><br>
+        <input type="text" id="salary" name="t1" value="{{d.job_salary}}"><br>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="location">Location</label><br>
+        <input type="text" id="location" name="t2" value="{{d.job_location}}"><br>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="form-group col-md-6">
+        <label for="examschedule">Exam Schedule</label><br>
+        <input type="date" id="examschedule" name="t3" value="{{d.job_examschedule}}"><br>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="cutoff">Cutoff</label><br>
+        <input type="number" id="cutoff" name="a2" value="{{d.job_cutoff}}"><br>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="form-group col-md-6">
+        <label for="qcount">Question Count</label><br>
+        <input type="number" id="qcount" name="a3" value="{{d.job_qcount}}"><br>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="salary">Job Description</label><br>
+        <input type="text" id="desc" name="a4" value="{{d.job_description}}"><br>
+      </div>
+    </div>
+    <br>
+    <input type="submit" value="Submit">
+  </form> 
+
+{% endblock %}
